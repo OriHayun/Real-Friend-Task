@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     },
     headerIcon: {
         fontSize: 20,
-        color: 'black',
+        color: 'red',
         marginRight: 10
     }
 });

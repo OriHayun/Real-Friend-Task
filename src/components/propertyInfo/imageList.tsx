@@ -1,5 +1,5 @@
 import React from "react";
-import { View, FlatList, StyleSheet, Image } from 'react-native';
+import { View, FlatList, StyleSheet, Image, ActivityIndicator } from 'react-native';
 
 type Props = {
     images: string[],
@@ -10,15 +10,18 @@ const ImageList: React.FC<Props> = ({ images }) => {
         <View style={styles.imageSlider}>
             <FlatList
                 data={images}
+                initialNumToRender={images.length}
                 keyExtractor={(item: string) => item}
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 renderItem={({ item }: { item: string }) => {
                     return (
-                        <Image
-                            style={styles.image}
-                            source={{ uri: item }}
-                        />
+                        <View >
+                            <Image
+                                style={styles.image}
+                                source={{ uri: item }}
+                            />
+                        </View>
                     )
                 }}
             />
@@ -28,11 +31,13 @@ const ImageList: React.FC<Props> = ({ images }) => {
 
 const styles = StyleSheet.create({
     imageSlider: {
-        flex: 0.3
+        flex: 0.3,
+        justifyContent: 'center'
     },
     image: {
-        flex: 1,
-        resizeMode: 'contain'
+        width: 150,
+        height: 150,
+        marginHorizontal: 10
     },
 })
 

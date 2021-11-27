@@ -6,17 +6,17 @@ import { AntDesign } from '@expo/vector-icons';
 type Props = {
     price: number,
     property: Property,
-    setFavorites: Function
+    setProperties: Function
 }
 
-const PropertyCardFooter: React.FC<Props> = ({ price, property, setFavorites }) => {
+const PropertyCardFooter: React.FC<Props> = ({ price, property, setProperties }) => {
     return (
         <View style={styles.cardFooter}>
             <Text>{price}$</Text>
             <TouchableOpacity
                 onPress={() =>
-                    setFavorites((prevFavorites: Property[]) =>
-                        [...prevFavorites, property])}
+                    setProperties((prevProperties: Property[]) =>
+                        [...prevProperties, property.favorite = !property.favorite])}
             >
                 {
                     property.favorite
