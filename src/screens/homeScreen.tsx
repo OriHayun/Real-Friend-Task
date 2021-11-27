@@ -44,6 +44,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigation }) => {
             {properties.length
                 ? <FlatList
                     data={properties}
+                    initialNumToRender={10}
                     style={{ alignSelf: 'center' }}
                     numColumns={2}
                     keyExtractor={item => item.id}
