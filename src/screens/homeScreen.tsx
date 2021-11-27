@@ -25,10 +25,18 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigation }) => {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <AntDesign name="heart" style={styles.headerIcon} onPress={() => navigation.navigate('Favorites', { favorites: properties.filter((property: Property) => property.favorite === true) })} />
+                <AntDesign
+                    name="heart"
+                    style={styles.headerIcon}
+                    onPress={() => {
+                        const favorites: Property[] = properties.filter((property: Property) => property.favorite === true)
+                        navigation.navigate('Favorites', { favorites })
+                    }
+                    }
+                />
             ),
         });
-    }, [navigation]);
+    }, [navigation, properties]);
 
     return (
         <View style={styles.container}>

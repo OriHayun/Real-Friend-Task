@@ -16,4 +16,5 @@ export type NavigationProps = {
   navigation: ScreenNavigationProp;
 };
 
-export type RouteProps = RouteProp<RootStackParamList, 'Property'>;
+export type PropertyRouteProps = RouteProp<RootStackParamList, 'Property'>;
+export type FavoritesRouteProps = RouteProp<RootStackParamList, 'Favorites'>;

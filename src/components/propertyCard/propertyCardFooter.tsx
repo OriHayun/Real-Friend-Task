@@ -6,24 +6,27 @@ import { AntDesign } from '@expo/vector-icons';
 type Props = {
     price: number,
     property: Property,
-    setProperties: Function
+    setProperties?: Function
 }
 
 const PropertyCardFooter: React.FC<Props> = ({ price, property, setProperties }) => {
     return (
         <View style={styles.cardFooter}>
             <Text>{price}$</Text>
-            <TouchableOpacity
-                onPress={() =>
-                    setProperties((prevProperties: Property[]) =>
-                        [...prevProperties, property.favorite = !property.favorite])}
-            >
-                {
-                    property.favorite
-                        ? <AntDesign name="heart" color="red" style={styles.likeIcon} />
-                        : <AntDesign name="hearto" color="black" style={styles.likeIcon} />
-                }
-            </TouchableOpacity>
+            {setProperties ?
+                <TouchableOpacity
+                    onPress={() =>
+                        setProperties((prevProperties: Property[]) =>
+                            [...prevProperties, property.favorite = !property.favorite])}
+                >
+                    {
+                        property.favorite
+                            ? <AntDesign name="heart" color="red" style={styles.likeIcon} />
+                            : <AntDesign name="hearto" color="black" style={styles.likeIcon} />
+                    }
+                </TouchableOpacity>
+                : null
+            }
         </View>
     )
 }
