@@ -9,6 +9,7 @@ const SingleImage: React.FC<Props> = ({ path }: { path: string }) => {
     return (
         <Image
             style={styles.image}
+            defaultSource={require('../../assets/images/test.png')}
             source={{ uri: path }}
         />
     )
