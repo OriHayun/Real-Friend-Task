@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { ScreenNavigationProp, RouteProps } from '../models/types/navigation';
+import { ScreenNavigationProp, PropertyRouteProps } from '../models/types/navigation';
 import { Property } from '../models/types/property';
 import GenericModal from '../components/genericModal'
 import ImageList from '../components/propertyInfo/imageList';
@@ -8,7 +8,7 @@ import Info from '../components/propertyInfo/info';
 import Map from '../components/propertyInfo/map';
 
 type Props = {
-    route: RouteProps,
+    route: PropertyRouteProps,
     navigation: ScreenNavigationProp
 }
 
