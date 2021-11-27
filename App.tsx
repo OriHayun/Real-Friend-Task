@@ -1,21 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './src/screens/homeScreen';
+import PropertyScreen from './src/screens/propertyScreen';
+import FavoritesScreen from './src/screens/favoritesScreen';
+import { RootStackParamList } from './src/models/types/navigation';
+import { APP_NAME } from './src/models/conststanst/appName';
 
-export default function App() {
+const App: React.FC<{}> = () => {
+
+  const Stack = createStackNavigator<RootStackParamList>();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            title: APP_NAME,
+          }}
+        />
+        <Stack.Screen
+          name="Property"
+          component={PropertyScreen}
+        />
+        <Stack.Screen
+          name="Favorites"
+          component={FavoritesScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer >
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+export default App;
