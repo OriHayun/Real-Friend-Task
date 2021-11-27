@@ -1,5 +1,7 @@
 import React from "react";
-import { View, FlatList, StyleSheet, Image, ActivityIndicator } from 'react-native';
+import { View, FlatList, StyleSheet, Image } from 'react-native';
+import { REAL_ESTATE_DEFAULT_IMAGE_PATH } from '../../models/conststanst/real_estate_default_image_path';
+import SingleImage from "./singleImage";
 
 type Props = {
     images: string[],
@@ -8,23 +10,24 @@ type Props = {
 const ImageList: React.FC<Props> = ({ images }) => {
     return (
         <View style={styles.imageSlider}>
-            <FlatList
-                data={images}
-                initialNumToRender={images.length}
-                keyExtractor={(item: string) => item}
-                showsHorizontalScrollIndicator={false}
-                horizontal={true}
-                renderItem={({ item }: { item: string }) => {
-                    return (
-                        <View >
-                            <Image
-                                style={styles.image}
-                                source={{ uri: item }}
-                            />
-                        </View>
-                    )
-                }}
-            />
+            {images
+                ? <FlatList
+                    data={images}
+                    initialNumToRender={3}
+                    keyExtractor={(item: string) => item}
+                    showsHorizontalScrollIndicator={false}
+                    horizontal={true}
+                    renderItem={({ item }: { item: string }) => {
+                        return (
+                            <SingleImage path={item}/>
+                        )
+                    }}
+                />
+                : <Image
+                    style={[styles.image, styles.defaultImage]}
+                    source={{ uri: REAL_ESTATE_DEFAULT_IMAGE_PATH }}
+                />
+            }
         </View>
     )
 }
@@ -39,6 +42,9 @@ const styles = StyleSheet.create({
         height: 150,
         marginHorizontal: 10
     },
+    defaultImage: {
+        alignSelf: 'center'
+    }
 })
 
 export default ImageList;

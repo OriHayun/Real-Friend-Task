@@ -4,8 +4,8 @@ import { Property } from './property';
 
 export type RootStackParamList = {
   Home: undefined;
-  Property: { property: Property, favorites: Property[] };
-  Favorites: { favorites: Readonly<Property[]> }
+  Property: { property: Property };
+  Favorites: { favorites: Property[] }
 };
 
 export type ScreenNavigationProp = StackNavigationProp<

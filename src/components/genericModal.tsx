@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Modal, Pressable } from 'react-native';
+import React, { useState, useCallback } from "react";
+import { View, Text, StyleSheet, Modal, Pressable, ScrollView } from 'react-native';
 import { Property } from "../models/types/property";
+import { Feather } from '@expo/vector-icons';
 
 type Props = {
     content: string,
@@ -9,7 +10,15 @@ type Props = {
 }
 
 const GenericModal: React.FC<Props> = ({ content, modalVisible, setModalVisible }) => {
+    const DEFAULT_NUMBER_OF_LINES: number = 3
+    const [textShown, setTextShown] = useState(false);
+    const [lengthMore, setLengthMore] = useState(false);
 
+    const toggleNumberOfLines = () => { setTextShown(!textShown); }
+
+    const onTextLayout = useCallback(e => {
+        setLengthMore(e.nativeEvent.lines.length >= DEFAULT_NUMBER_OF_LINES);
+    }, []);
 
     return (
         <Modal
@@ -19,13 +28,28 @@ const GenericModal: React.FC<Props> = ({ content, modalVisible, setModalVisible 
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Text numberOfLines={3} style={styles.modalText}>{content}</Text>
                     <Pressable
-                        style={[styles.button, styles.buttonClose]}
                         onPress={() => setModalVisible(!modalVisible)}
-                    >
-                        <Text style={styles.textStyle}>read more</Text>
+                        style={styles.cancelIcon}>
+                        <Feather name="x" size={20} color="black" />
                     </Pressable>
+                    <Text
+                        numberOfLines={textShown ? undefined : DEFAULT_NUMBER_OF_LINES}
+                        onTextLayout={onTextLayout}
+                        ellipsizeMode='tail'
+                        style={styles.modalText}
+                    >
+                        {content}
+                    </Text>
+                    {lengthMore
+                        ? <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={toggleNumberOfLines}
+                        >
+                            <Text style={styles.textStyle}>{textShown ? 'Read less...' : 'Read more...'}</Text>
+                        </Pressable>
+                        : null
+                    }
                 </View>
             </View>
         </Modal>
@@ -53,6 +77,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
+    },
+    cancelIcon: {
+        position: 'absolute',
+        alignSelf: 'flex-end',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
     },
     modalText: {
         marginBottom: 15,

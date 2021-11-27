@@ -13,7 +13,6 @@ const Data = require('../data/data.json');
 
 const HomeScreen: React.FC<NavigationProps> = ({ navigation }) => {
     const [properties, setProperties] = useState<Property[]>([]);
-    const [favorites, setFavorites] = useState<Property[]>([]);
 
     useEffect(() => {
         const response: Property[] = Data.map((property: any) => {
@@ -26,7 +25,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigation }) => {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <AntDesign name="heart" style={styles.headerIcon} onPress={() => navigation.navigate('Favorites', { favorites })} />
+                <AntDesign name="heart" style={styles.headerIcon} onPress={() => navigation.navigate('Favorites', { favorites: properties.filter((property: Property) => property.favorite === true) })} />
             ),
         });
     }, [navigation]);
