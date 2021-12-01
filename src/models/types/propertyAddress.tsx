@@ -1,4 +1,5 @@
 export type PropertyAddress = {
+    address: string,
     street: string,
     borough: string,
     unitNumber: string,

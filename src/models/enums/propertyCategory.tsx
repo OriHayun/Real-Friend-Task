@@ -1,4 +1,4 @@
 export enum PropertyCategoryEnum {
-    SALE = 1,
+    SALE = 'SALE',
     APT_RENT = 'RENT'
 }

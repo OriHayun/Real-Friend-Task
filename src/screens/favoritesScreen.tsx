@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Text, FlatList, StyleSheet } from 'react-native';
 import { FavoritesRouteProps, ScreenNavigationProp } from '../models/types/navigation';
 import { Property } from '../models/types/property';
 import PropertyCard from '../components/propertyCard/propertyCard';
@@ -45,12 +45,35 @@ const FavoritesScreen: React.FC<Props> = ({ navigation, route }) => {
                             )
                         }}
                     />
-                    : null
+                    : <View style={styles.emptyPageContainer}>
+                        <Text
+                            style={styles.emptyText}>
+                            Favorites is empty
+                        </Text>
+                        <TouchableOpacity
+                            style={styles.returnToHomePageLinkWrapper}
+                            onPress={() => navigation.popToTop()}
+                        >
+                            <Text style={styles.returnToHomePageLinkText}>
+                                Click here to see the list
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
             }
         </>
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    emptyPageContainer: { flex: 1, justifyContent: 'center', alignSelf: 'center' },
+    emptyText: { textAlign: 'center', fontSize: 18 },
+    returnToHomePageLinkWrapper: {
+        alignItems: 'center', paddingVertical: 5,
+    },
+    returnToHomePageLinkText: {
+        textAlign: 'center', color: 'blue', fontSize: 16
+    }
+
+})
 
 export default FavoritesScreen;

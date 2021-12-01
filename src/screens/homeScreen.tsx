@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Dimensions, ActivityIndicator } from 'react-native';
 import { NavigationProps } from '../models/types/navigation';
 import { Property } from '../models/types/property';
 import PropertyCard from '../components/propertyCard/propertyCard';
@@ -8,17 +8,20 @@ import PropertyCardBody from '../components/propertyCard/propertyCardBody';
 import PropertyCardFooter from '../components/propertyCard/propertyCardFooter';
 import dtoToDm from '../transformers/propertyTransformer';
 import { AntDesign } from '@expo/vector-icons';
+import realFriendApi from '../api/realFriendApi';
+import { PropertyDto } from '../models/dto/propertyDto';
 
-const Data = require('../data/data.json');
 
 const HomeScreen: React.FC<NavigationProps> = ({ navigation }) => {
     const [properties, setProperties] = useState<Property[]>([]);
 
     useEffect(() => {
-        const response: Property[] = Data.map((property: any) => {
-            return dtoToDm(property);
-        })
-        setProperties(response);
+        (async () => {
+            const response: any = await realFriendApi.get('/properties');
+            const data: PropertyDto[] = response.data;
+            const properties = data.map((res: PropertyDto) => dtoToDm(res))
+            setProperties(properties);
+        })();
     }, []);
 
 
@@ -31,8 +34,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigation }) => {
                     onPress={() => {
                         const favorites: Property[] = properties.filter((property: Property) => property.favorite === true)
                         navigation.navigate('Favorites', { favorites })
-                    }
-                    }
+                    }}
                 />
             ),
         });
@@ -70,7 +72,10 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigation }) => {
                         )
                     }}
                 />
-                : null
+                : <View style={styles.laoderWrapper}>
+                    <ActivityIndicator size="large" color="#0000ff" />
+                </View>
+
             }
         </View>
     );
@@ -80,6 +85,10 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    laoderWrapper: {
+        flex: 1,
+        justifyContent: "center",
     },
     header: {
         fontSize: 18,

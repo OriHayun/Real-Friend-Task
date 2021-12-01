@@ -1,6 +1,5 @@
 import { PropertyCoordinates } from './propertyCoordinates';
 import { PropertyAddress } from './propertyAddress';
-import { AgentDetails } from './agentDetails';
 import { PropertyCategoryEnum } from '../enums/propertyCategory';
 
 export type Property = {
@@ -10,7 +9,7 @@ export type Property = {
     price: number,
     status: string,
     description: string,
-    agentDetails: AgentDetails,
+    agentDetails: string, // if i had this data i was create an interface type for agentDetails
     coordinates: PropertyCoordinates,
     favorite: boolean,
     images: string[]

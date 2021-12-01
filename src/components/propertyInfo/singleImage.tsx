@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { StyleSheet, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 type Props = {
     path: string
@@ -7,11 +8,13 @@ type Props = {
 
 const SingleImage: React.FC<Props> = ({ path }: { path: string }) => {
     return (
-        <Image
-            style={styles.image}
-            defaultSource={require('../../assets/images/test.png')}
-            source={{ uri: path }}
-        />
+        <TouchableOpacity>
+            <Image
+                style={styles.image}
+                defaultSource={require('../../assets/images/test.png')}
+                source={{ uri: path }}
+            />
+        </TouchableOpacity>
     )
 }
 

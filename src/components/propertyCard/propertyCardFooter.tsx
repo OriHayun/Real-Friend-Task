@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Property } from '../../models/types/property';
 import { AntDesign } from '@expo/vector-icons';
+import RealFriendApi from '../../api/realFriendApi'
 
 type Props = {
     price: number,
@@ -10,14 +11,22 @@ type Props = {
 }
 
 const PropertyCardFooter: React.FC<Props> = ({ price, property, setProperties }) => {
+    
+    const onHeartIconClick = async (): Promise<void> => {
+        const response = await RealFriendApi.put(`/properties/${property.id}`, { favorite: !property.favorite });
+        if (response.status === 200 && response.data) {
+            setProperties ? setProperties((prevProperties: Property[]) => [...prevProperties, property.favorite = !property.favorite]) : null
+        } else {
+            alert('Something went wrong, please try again')
+        }
+    }
+
     return (
         <View style={styles.cardFooter}>
-            <Text>{price}$</Text>
+            <Text>{price ? price + '$' : 'Unknown'}</Text>
             {setProperties ?
                 <TouchableOpacity
-                    onPress={() =>
-                        setProperties((prevProperties: Property[]) =>
-                            [...prevProperties, property.favorite = !property.favorite])}
+                    onPress={onHeartIconClick}
                 >
                     {
                         property.favorite

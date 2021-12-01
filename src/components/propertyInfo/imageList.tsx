@@ -2,6 +2,7 @@ import React from "react";
 import { View, FlatList, StyleSheet, Image } from 'react-native';
 import { REAL_ESTATE_DEFAULT_IMAGE_PATH } from '../../models/conststanst/real_estate_default_image_path';
 import SingleImage from "./singleImage";
+import { SliderBox } from "react-native-image-slider-box";
 
 type Props = {
     images: string[],
@@ -19,7 +20,7 @@ const ImageList: React.FC<Props> = ({ images }) => {
                     horizontal={true}
                     renderItem={({ item }: { item: string }) => {
                         return (
-                            <SingleImage path={item}/>
+                            <SingleImage path={item} />
                         )
                     }}
                 />

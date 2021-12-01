@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { PropertyCategoryEnum } from '../../models/enums/propertyCategory';
+import { PropertyStatusEnum } from '../../models/enums/propertyStatus';
 import { PropertyAddress } from '../../models/types/propertyAddress';
 import capitelizeFirstLetter from '../../utils/capitelizeFirstLetter';
+import setStatusColor from '../../utils/setStatusColor';
 
 type Props = {
     address: PropertyAddress,
@@ -13,10 +15,10 @@ type Props = {
 const PropertyCardBody: React.FC<Props> = ({ address, category, status }) => {
     return (
         <View style={styles.cardBody}>
-            <Text numberOfLines={1} style={styles.addressText}>{address.unitNumber} - {address.street}</Text>
+            <Text numberOfLines={1} style={styles.addressText}>{address.address}</Text>
             <View style={styles.propertyInfoWrapper}>
                 <Text>{capitelizeFirstLetter(category.toString())}</Text>
-                <Text>{capitelizeFirstLetter(status)}</Text>
+                <Text style={{ color: setStatusColor(status) }}>{capitelizeFirstLetter(status)}</Text>
             </View>
         </View>
     )
