@@ -46,7 +46,7 @@ const GenericModal: React.FC<Props> = ({ content, modalVisible, setModalVisible 
                             style={[styles.button, styles.buttonClose]}
                             onPress={toggleNumberOfLines}
                         >
-                            <Text style={styles.textStyle}>{textShown ? 'Read less...' : 'Read more...'}</Text>
+                            <Text style={styles.textStyle}>{textShown ? 'Read less' : 'Read more...'}</Text>
                         </Pressable>
                         : null
                     }
