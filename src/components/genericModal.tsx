@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { View, Text, StyleSheet, Modal, Pressable, ScrollView } from 'react-native';
-import { Property } from "../models/types/property";
+import { View, Text, StyleSheet, Modal, Pressable } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 type Props = {
