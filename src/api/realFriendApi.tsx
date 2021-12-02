@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://protected-island-49090.herokuapp.com',
 })
